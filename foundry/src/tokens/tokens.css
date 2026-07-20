@@ -9,17 +9,17 @@
 :root {
   /* Color — name by role, not by hue, so "accent" can be orange for one client
      and teal for the next without touching any component code. */
-  --color-bg: ;
-  --color-surface: ;
-  --color-text-primary: ;
-  --color-text-muted: ;
-  --color-accent: ;
-  --color-accent-contrast: ;
+  --color-bg: #12151f;
+  --color-surface: #191d2b;
+  --color-text-primary: #edeae2;
+  --color-text-muted: #8b92ac;
+  --color-accent: #c8883a;
+  --color-accent-contrast: #12151f;
 
   /* Type — set per client from the chosen font category in DESIGN.md */
-  --font-display: ;
-  --font-body: ;
-  --font-mono: ;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "Space Mono", monospace;
 
   /* Spacing scale — override the multiplier, not each value, to keep rhythm
      consistent while density varies (maximalist vs. minimalist clients) */
@@ -30,4 +30,19 @@
   --duration-fast: 150ms;
   --duration-standard: 400ms;
   --duration-deliberate: 900ms;
+
+  /*
+    Client-specific tokens (Lawrence Ijele portfolio only) — the ledger's
+    status stamps need a third surface layer and per-status colors that no
+    other LOVAN client build uses. These live outside the shared contract
+    above rather than bloating it for clients who will never touch them.
+  */
+  --color-surface-2: #20253a;
+  --color-rule: #2a3050;
+  --color-live: #6fbe8f;
+  --color-live-soft: rgba(111, 190, 143, 0.14);
+  --color-building: #c8883a;
+  --color-building-soft: rgba(200, 136, 58, 0.14);
+  --color-early: #8892b0;
+  --color-early-soft: rgba(136, 146, 176, 0.14);
 }
