@@ -39,7 +39,8 @@ export default function Ledger() {
           {ledger.map((item) => (
             <article
               key={item.index}
-              className="ledger-row grid grid-cols-1 gap-6 border-t border-rule py-8 sm:grid-cols-[56px_1fr]"
+              id={item.slug}
+              className="ledger-row grid grid-cols-1 gap-6 scroll-mt-20 border-t border-rule py-8 sm:grid-cols-[56px_1fr]"
             >
               <span className="ledger-index pt-1 font-mono text-[13px] text-text-muted">
                 {item.index}

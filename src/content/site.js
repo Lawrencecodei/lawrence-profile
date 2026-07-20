@@ -15,13 +15,19 @@ export const hero = {
   eyebrow: "Abuja, Nigeria — Founder & Operator",
   title: "I build the infrastructure Nigeria's informal economy is missing.",
   sub: "Four ventures, one operator. NestMatch fixes rental trust. LOVAN Digital builds the web presence. Capital Reporters tracks the policy. Need Engine is next: matching Nigeria's workforce to its next job.",
-  tickerWords: ["NESTMATCH", "LOVAN DIGITAL", "CAPITAL REPORTERS", "NEED ENGINE"],
+  tickerItems: [
+    { label: "NESTMATCH", slug: "nestmatch" },
+    { label: "LOVAN DIGITAL", slug: "lovan-digital" },
+    { label: "CAPITAL REPORTERS", slug: "capital-reporters" },
+    { label: "NEED ENGINE", slug: "need-engine" },
+  ],
   image: heroImage,
 };
 
 export const ledger = [
   {
     index: "01",
+    slug: "nestmatch",
     name: "NestMatch",
     status: "building",
     statusLabel: "Building",
@@ -36,6 +42,7 @@ export const ledger = [
   },
   {
     index: "02",
+    slug: "lovan-digital",
     name: "LOVAN Digital",
     status: "live",
     statusLabel: "Live",
@@ -50,6 +57,7 @@ export const ledger = [
   },
   {
     index: "03",
+    slug: "capital-reporters",
     name: "Capital Reporters",
     status: "live",
     statusLabel: "Live",
@@ -64,6 +72,7 @@ export const ledger = [
   },
   {
     index: "04",
+    slug: "need-engine",
     name: "Need Engine",
     status: "early",
     statusLabel: "Early",

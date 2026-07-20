@@ -17,7 +17,7 @@ export default function Hero() {
     const startTicker = () => {
       if (reduced) return;
       intervalRef.current = setInterval(() => {
-        setTickerIndex((i) => (i + 1) % hero.tickerWords.length);
+        setTickerIndex((i) => (i + 1) % hero.tickerItems.length);
       }, 2400);
     };
 
@@ -80,22 +80,19 @@ export default function Hero() {
           <p ref={subRef} className="mt-6 max-w-[560px] text-[17px] text-text-muted">
             {hero.sub}
           </p>
-          <div
+          <a
             ref={tickerRef}
+            href={`#${hero.tickerItems[tickerIndex].slug}`}
             onMouseEnter={pauseTicker}
             onMouseLeave={resumeTicker}
-            className="mt-11 inline-flex items-center gap-2.5 rounded-full border border-rule px-4 py-2.5 pl-4 font-mono text-[13px] text-text-muted"
+            className="mt-11 inline-flex items-center gap-2.5 rounded-full border border-rule px-4 py-2.5 font-mono text-[13px] text-text-muted no-underline transition-colors duration-200 hover:border-accent hover:text-accent"
           >
-            <span className="relative inline-flex h-[7px] w-[7px]">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-live" />
-              <span className="absolute -inset-1 rounded-full bg-live-soft" />
-            </span>
             <span>STATUS:</span>
             <span className="font-bold text-text-primary">
-              {hero.tickerWords[tickerIndex]}
+              {hero.tickerItems[tickerIndex].label}
               <span className="ml-0.5 inline-block h-[14px] w-[7px] translate-y-[2px] animate-[blink_1s_steps(1)_infinite] bg-accent motion-reduce:animate-none" />
             </span>
-          </div>
+          </a>
         </div>
       </div>
     </header>
