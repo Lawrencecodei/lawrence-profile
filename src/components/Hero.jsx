@@ -9,45 +9,42 @@ export default function Hero() {
   const subRef = useRef(null);
   const tickerRef = useRef(null);
   const [tickerIndex, setTickerIndex] = useState(0);
-  const intervalRef = useRef(null);
+  const [tickerRunning, setTickerRunning] = useState(false);
+  const [tickerHovered, setTickerHovered] = useState(false);
 
+  // Load-in animation. Starts the ticker once it completes (or immediately,
+  // unanimated, if the visitor prefers reduced motion).
   useEffect(() => {
-    const reduced = prefersReducedMotion();
-
-    const startTicker = () => {
-      if (reduced) return;
-      intervalRef.current = setInterval(() => {
-        setTickerIndex((i) => (i + 1) % hero.tickerItems.length);
-      }, 2400);
-    };
-
-    if (reduced) {
-      startTicker();
-      return () => intervalRef.current && clearInterval(intervalRef.current);
+    if (prefersReducedMotion()) {
+      setTickerRunning(true);
+      return;
     }
 
     const ctx = gsap.context(() => {
       gsap
-        .timeline({ onComplete: startTicker })
+        .timeline({ onComplete: () => setTickerRunning(true) })
         .from(eyebrowRef.current, { opacity: 0, y: 14, duration: 0.5, ease: "power2.out" })
         .from(titleRef.current, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out" }, "-=0.25")
         .from(subRef.current, { opacity: 0, y: 16, duration: 0.6, ease: "power2.out" }, "-=0.4")
         .from(tickerRef.current, { opacity: 0, y: 10, duration: 0.5, ease: "power2.out" }, "-=0.3");
     });
 
-    return () => {
-      ctx.revert();
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
+    return () => ctx.revert();
   }, []);
 
-  const pauseTicker = () => intervalRef.current && clearInterval(intervalRef.current);
-  const resumeTicker = () => {
-    if (prefersReducedMotion()) return;
-    intervalRef.current = setInterval(() => {
-      setTickerIndex((i) => (i + 1) % hero.tickerWords.length);
+  // The interval's entire lifecycle lives in this one effect, so React
+  // guarantees the previous one is cleared before a new one is created
+  // (on hover changes, on Fast Refresh, on unmount) — no orphaned timers.
+  useEffect(() => {
+    if (!tickerRunning || tickerHovered || prefersReducedMotion()) return;
+    const id = setInterval(() => {
+      setTickerIndex((i) => (i + 1) % hero.tickerItems.length);
     }, 2400);
-  };
+    return () => clearInterval(id);
+  }, [tickerRunning, tickerHovered]);
+
+  const pauseTicker = () => setTickerHovered(true);
+  const resumeTicker = () => setTickerHovered(false);
 
   return (
     <header id="top" className="relative overflow-hidden border-b border-rule">
